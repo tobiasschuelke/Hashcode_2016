@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by jschaeffer on 11.02.16.
  */
@@ -23,6 +25,30 @@ public class Parser {
 
             int row = new Integer(lines[i].split(" ")[0]);
             int col = new Integer(lines[i].split(" ")[1]);
+            i++;
+            int[] warehouseProducts = new int[productAmount];
+            String[] warehouseProductsStrings = lines[i].split(" ");
+            for(int j = 0; j<warehouseProducts.length;j++){
+                warehouseProducts[j] = new Integer(warehouseProductsStrings[j]);
+            }
+            //System.out.println("warehouse at "+ row + "|" + col + " has products: " + Arrays.toString(warehouseProducts));
+        }
+        currentLine += warehouseAmount*2;
+        int orderAmount = new Integer(lines[currentLine]);
+        currentLine ++;
+        for(int i = currentLine;i<currentLine+(orderAmount*3);i++){
+
+            int row = new Integer(lines[i].split(" ")[0]);
+            int col = new Integer(lines[i].split(" ")[1]);
+            i++;
+            int productsForOrderAmount = new Integer(lines[i]);
+            i++;
+            int[] productTypesForOrder = new int[productsForOrderAmount];
+            String[] productTypesStrings = lines[i].split(" ");
+            for(int j = 0; j<productTypesForOrder.length;j++){
+                productTypesForOrder[j] = new Integer(productTypesStrings[j]);
+            }
+            //System.out.println("Customer: "+ (i-2) + " at " + row + "|" + col + " orders " + productsForOrderAmount + " products: " + Arrays.toString(productTypesForOrder));
         }
     }
 }
