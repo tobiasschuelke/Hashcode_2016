@@ -4,6 +4,7 @@ import models.ProductType;
 import models.Warehouse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class Parser {
         int currentLine = 4;
         int warehouseAmount = new Integer(lines[3]);
         ArrayList<Warehouse> warehouses = new ArrayList<>(warehouseAmount);
+        int id = 0;
         for(int i = currentLine; i< currentLine+(warehouseAmount*2); i++){
             Map<ProductType, Integer> availableProducts = new HashMap<ProductType, Integer>();
             int row = new Integer(lines[i].split(" ")[0]);
@@ -41,13 +43,15 @@ public class Parser {
                 warehouseProducts[j] = new Integer(warehouseProductsStrings[j]);
                 availableProducts.put(productTypes.get(j), new Integer(warehouseProductsStrings[j]));
             }
-            warehouses.add(new Warehouse(availableProducts,row, col));
+            warehouses.add(new Warehouse(availableProducts,row, col, id));
+            id++;
             //System.out.println("warehouse at "+ row + "|" + col + " has products: " + Arrays.toString(warehouseProducts));
         }
         currentLine += warehouseAmount*2;
         int orderAmount = new Integer(lines[currentLine]);
         currentLine ++;
         ArrayList<Order> orders = new ArrayList<>(orderAmount);
+        id = 0;
         for(int i = currentLine;i<currentLine+(orderAmount*3);i++){
             ArrayList<ProductType> wishes = new ArrayList<>();
             int row = new Integer(lines[i].split(" ")[0]);
@@ -61,10 +65,11 @@ public class Parser {
                 productTypesForOrder[j] = new Integer(productTypesStrings[j]);
                 wishes.add(productTypes.get(j));
             }
-            orders.add(new Order(wishes, row, col));
-            //System.out.println("Customer: "+ (i-2) + " at " + row + "|" + col + " orders " + productsForOrderAmount + " products: " + Arrays.toString(productTypesForOrder));
+            orders.add(new Order(wishes, row, col, id));
+            id++;
+            //System.out.println("Customer: "+ (id-1) + " at " + row + "|" + col + " orders " + productsForOrderAmount + " products: " + Arrays.toString(productTypesForOrder));
         }
 
-        return new DroneGrid(rows, cols, droneAmount, droneWeightMax, productTypes, warehouses, orders);
+        return new DroneGrid(rows, cols, droneAmount, droneWeightMax, productTypes, warehouses, orders, deadline);
     }
 }

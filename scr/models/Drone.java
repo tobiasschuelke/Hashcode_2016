@@ -10,10 +10,12 @@ public class Drone extends Base {
     private int leftDistance;
     ArrayList<ProductType> load = new ArrayList<>();
     DroneGrid grid;
+    int id;
 
-    public Drone (int maxLoad, DroneGrid grid) {
+    public Drone (int maxLoad, DroneGrid grid, int id) {
         this.maxLoad = maxLoad;
         this.grid = grid;
+        this.id = id;
     }
 
     public void load(Order order) {
@@ -50,6 +52,7 @@ public class Drone extends Base {
         leftDistance++; // loading time
 
         setCoordinates(house); // destination coordinates
+        grid.droneCommands.add(id + " L " + house + " " + load.get(0) + " 1");
     }
 
     public void fly() {
@@ -63,6 +66,7 @@ public class Drone extends Base {
         leftDistance--;
 
         if (leftDistance == 0) {
+
             if (order != null && !load.isEmpty()) {
                 deliver();
             } else {
@@ -77,5 +81,10 @@ public class Drone extends Base {
     public void deliver() {
         leftDistance = calcDist(order);
         setCoordinates(order);
+        grid.droneCommands.add(id + " D " + order + " " + load.get(0) + " 1");
+    }
+
+    public String toString(){
+        return ""+id;
     }
 }

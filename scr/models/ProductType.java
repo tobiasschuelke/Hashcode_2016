@@ -1,7 +1,7 @@
 package models;
 
 
-public class ProductType extends Base {
+public class ProductType  {
     private int id;
     private int weight;
 
@@ -16,5 +16,9 @@ public class ProductType extends Base {
 
     public int getWeight() {
         return weight;
+    }
+
+    public String toString(){
+        return ""+id;
     }
 }
