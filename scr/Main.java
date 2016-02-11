@@ -1,8 +1,11 @@
+import models.DroneGrid;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Main {
+
 
     public static void main (String[] args) {
         if (args == null || args.length != 1) {
@@ -12,7 +15,8 @@ public class Main {
 
         try {
             String input = new String(Files.readAllBytes(Paths.get(args[0])));
-            Parser.parse(input);
+            DroneGrid grid = Parser.parse(input);
+            grid.simulate();
         } catch (IOException e) {
             e.printStackTrace();
         }
