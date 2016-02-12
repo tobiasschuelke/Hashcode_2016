@@ -18,4 +18,8 @@ public class Order extends  Base {
     public String toString(){
         return ""+id;
     }
+
+    public String info() {
+        return "ID: " + id + " wishes:" + wishes.toString();
+    }
 }

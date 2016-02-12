@@ -73,7 +73,7 @@ public class Drone extends Base {
                 this.busy = false;
                 grid.returnOrder(order);
                 order = null;
-                load.remove(0);     // TODO
+
             }
         }
     }
@@ -81,7 +81,9 @@ public class Drone extends Base {
     public void deliver() {
         leftDistance = calcDist(order);
         setCoordinates(order);
+        leftDistance++;
         grid.droneCommands.add(id + " D " + order + " " + load.get(0) + " 1");
+        load.remove(0);     // TODO
     }
 
     public String toString(){

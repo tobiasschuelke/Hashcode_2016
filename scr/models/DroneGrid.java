@@ -31,9 +31,9 @@ public class DroneGrid {
     }
 
     public void simulate(){
-        for(int i = 0; i < drones.size(); i++){
+        /*for(int i = 0; i < drones.size(); i++){
             drones.get(i).load(orders.remove(0));
-        }
+        }*/
 
         for(int t = 0; t<deadline;t++){
             for (Drone drone : drones) {

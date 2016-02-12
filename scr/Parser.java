@@ -63,11 +63,13 @@ public class Parser {
             String[] productTypesStrings = lines[i].split(" ");
             for(int j = 0; j<productTypesForOrder.length;j++){
                 productTypesForOrder[j] = new Integer(productTypesStrings[j]);
-                wishes.add(productTypes.get(j));
+                wishes.add(productTypes.get(new Integer(productTypesStrings[j])));
             }
-            orders.add(new Order(wishes, row, col, id));
+            Order newOrder = new Order(wishes, row, col, id);
+            orders.add(newOrder);
             id++;
             //System.out.println("Customer: "+ (id-1) + " at " + row + "|" + col + " orders " + productsForOrderAmount + " products: " + Arrays.toString(productTypesForOrder));
+            // System.out.println(newOrder.info());
         }
 
         return new DroneGrid(rows, cols, droneAmount, droneWeightMax, productTypes, warehouses, orders, deadline);

@@ -1,7 +1,9 @@
 import models.DroneGrid;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
@@ -14,7 +16,9 @@ public class Main {
         }
 
         try {
-            String input = new String(Files.readAllBytes(Paths.get(args[0])));
+            String input = new String(Files.readAllBytes(Paths.get(args[0]))).replace("\r", "");
+
+
             DroneGrid grid = Parser.parse(input);
             grid.simulate();
         } catch (IOException e) {
